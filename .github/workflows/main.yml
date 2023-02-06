@@ -21,23 +21,6 @@ jobs:
         with:
           runTests: false
 
-  # unit-test:
-  #   needs: [install-dependencies]
-  #   name: Run Unit Test
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     # - uses: bahmutov/npm-install@v1.8.25
-  #     #   with: {useRollingCache: true}
-  #     #   env:
-  #     #     CYPRESS_INSTALL_BINARY: 0
-  #     - name: Install dependencies
-  #       uses: cypress-io/github-action@v5.0.8
-  #       with:
-  #         runTests: false
-  #     - name: unit-test
-  #       run: yarn test:coverage
-
   lint:
     needs: install-dependencies
     name: Run Lint

@@ -1,6 +1,6 @@
 describe('template spec', () => {
   it('passes', () => {
     cy.visit('/')
-    cy.get('img').should('be.visible')
+    cy.get('.fas').should('be.visible')
   })
 })
