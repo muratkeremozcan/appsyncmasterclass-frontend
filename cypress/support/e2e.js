@@ -1,27 +1,40 @@
-// ***********************************************************
-// This example support/e2e.js is processed and
-// loaded automatically before your test files.
-//
-// This is a great place to put global configuration and
-// behavior that modifies Cypress.
-//
-// You can change the location of this file or turn off
-// automatically serving support files with the
-// 'supportFile' configuration option.
-//
-// You can read more here:
-// https://on.cypress.io/configuration
-// ***********************************************************
-
-// Import commands.js using ES2015 syntax:
 import './commands'
+// https://medium.com/trans-it/use-cypress-to-test-aws-amplify-apps-with-authentication-c2dfcb8accab
+import 'cypress-localstorage-commands'
+const Auth = require('aws-amplify').Auth
 
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
+const username = Cypress.env('USERNAME')
+const password = Cypress.env('PASSWORD')
+const userPoolId = Cypress.env('COGNITO_USER_POOL_ID')
+const clientId = Cypress.env('WEB_COGNITO_USER_POOL_CLIENT_ID')
 
-/* eslint-disable no-undef */
+const awsconfig = {
+  aws_user_pools_id: userPoolId,
+  aws_user_pools_web_client_id: clientId,
+}
 
-Cypress.Commands.add('login', (email, password) => {
+Auth.configure(awsconfig)
+
+Cypress.Commands.add('progLogin', () => {
+  cy.then(() => Auth.signIn(username, password)).then(cognitoUser => {
+    const idToken = cognitoUser.signInUserSession.idToken.jwtToken
+    const accessToken = cognitoUser.signInUserSession.accessToken.jwtToken
+
+    const makeKey = name =>
+      `CognitoIdentityServiceProvider.${cognitoUser.pool.clientId}.${cognitoUser.username}.${name}`
+
+    cy.setLocalStorage(makeKey('accessToken'), accessToken)
+    cy.setLocalStorage(makeKey('idToken'), idToken)
+    cy.setLocalStorage(
+      `CognitoIdentityServiceProvider.${cognitoUser.pool.clientId}.LastAuthUser`,
+      cognitoUser.username,
+    )
+  })
+  cy.saveLocalStorage()
+  return cy.visit('/')
+})
+
+Cypress.Commands.add('uiLogin', (email, password) => {
   cy.visit('/')
 
   const dig = () =>
@@ -30,20 +43,21 @@ Cypress.Commands.add('login', (email, password) => {
       .shadow()
       .find('amplify-sign-in')
       .shadow()
-      .find('amplify-auth-fields')
-      .shadow()
 
   const name = () =>
     dig()
+      .find('amplify-auth-fields')
+      .shadow()
       .find('amplify-username-field')
       .shadow()
       .find('amplify-form-field')
       .shadow()
       .find('#username')
-      .should('be.enabled')
 
   const pw = () =>
     dig()
+      .find('amplify-auth-fields')
+      .shadow()
       .find('amplify-password-field')
       .shadow()
       .find('amplify-form-field')
@@ -51,11 +65,7 @@ Cypress.Commands.add('login', (email, password) => {
       .find('#password')
 
   const signInBtn = () =>
-    cy
-      .get('amplify-authenticator.hydrated')
-      .shadow()
-      .find('amplify-sign-in')
-      .shadow()
+    dig()
       .find('amplify-form-section')
       .shadow()
       .find('amplify-button')
