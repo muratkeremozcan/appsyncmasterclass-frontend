@@ -1,28 +1,25 @@
 import './commands'
-// https://medium.com/trans-it/use-cypress-to-test-aws-amplify-apps-with-authentication-c2dfcb8accab
 import 'cypress-localstorage-commands'
+
+// https://medium.com/trans-it/use-cypress-to-test-aws-amplify-apps-with-authentication-c2dfcb8accab
+// we use the amplify Auth class to create a session for our user. This command returns a CognitoUser.
 const Auth = require('aws-amplify').Auth
+Auth.configure({
+  aws_user_pools_id: Cypress.env('COGNITO_USER_POOL_ID'),
+  aws_user_pools_web_client_id: Cypress.env('WEB_COGNITO_USER_POOL_CLIENT_ID'),
+})
 
-const username = Cypress.env('USERNAME')
-const password = Cypress.env('PASSWORD')
-const userPoolId = Cypress.env('COGNITO_USER_POOL_ID')
-const clientId = Cypress.env('WEB_COGNITO_USER_POOL_CLIENT_ID')
-
-const awsconfig = {
-  aws_user_pools_id: userPoolId,
-  aws_user_pools_web_client_id: clientId,
-}
-
-Auth.configure(awsconfig)
-
-Cypress.Commands.add('progLogin', () => {
+Cypress.Commands.add('progLogin', (username, password) => {
+  // the Auth.singIn() command needs to be wrapped in cy.then() because of the way cypress handles promises
   cy.then(() => Auth.signIn(username, password)).then(cognitoUser => {
+    // extract the idToken and accessToken from the cognitoUser
     const idToken = cognitoUser.signInUserSession.idToken.jwtToken
     const accessToken = cognitoUser.signInUserSession.accessToken.jwtToken
-
+    // the cognito credentials need to have a specific format, hence the makeKey function
     const makeKey = name =>
       `CognitoIdentityServiceProvider.${cognitoUser.pool.clientId}.${cognitoUser.username}.${name}`
 
+    // use cy.setLocalStorage to save the credentials to localStorage
     cy.setLocalStorage(makeKey('accessToken'), accessToken)
     cy.setLocalStorage(makeKey('idToken'), idToken)
     cy.setLocalStorage(
