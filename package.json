@@ -20,17 +20,19 @@
     "core-js": "3.6.5",
     "postcss": "7",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@2.0.2",
-    "vue": "2.6.11"
+    "vue": "2.6.11",
+    "vue-router": "3.5.1"
   },
   "devDependencies": {
     "@aws-amplify/ui-vue": "0.2.33",
     "@vue/cli-plugin-babel": "4.5.0",
     "@vue/cli-plugin-eslint": "4.5.0",
+    "@vue/cli-plugin-router": "5.0.0",
     "@vue/cli-service": "4.5.0",
     "aws-amplify": "3.3.14",
     "babel-eslint": "10.1.0",
     "cypress": "12.5.1",
-    "cypress-localstorage-commands": "^2.2.2",
+    "cypress-localstorage-commands": "2.2.2",
     "eslint": "v7",
     "eslint-config-prettier": "8.6.0",
     "eslint-plugin-cypress": "2.12.1",
