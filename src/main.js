@@ -3,6 +3,7 @@ import App from './App.vue'
 import './assets/tailwind.css'
 import Amplify from 'aws-amplify'
 import '@aws-amplify/ui-vue'
+import router from './router'
 
 // the env vars are from the .env file for backend, or aws console CloudFormation
 Amplify.configure({
@@ -26,5 +27,6 @@ Amplify.configure(myAppConfig)
 Vue.config.productionTip = false
 
 new Vue({
+  router,
   render: h => h(App),
 }).$mount('#app')
