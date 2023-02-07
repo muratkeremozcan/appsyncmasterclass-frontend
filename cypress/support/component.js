@@ -22,7 +22,7 @@ import './commands'
 import {mount} from 'cypress/vue2'
 
 //Load global styles
-// import '../../src/assets/tailwind.css'
+import '../../src/assets/tailwind.css'
 
 Cypress.Commands.add('mount', mount)
 
