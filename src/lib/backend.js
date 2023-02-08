@@ -1,8 +1,6 @@
 import {API} from 'aws-amplify'
 import gql from 'graphql-tag'
 
-// we get all these queries from AWS AppSync console (we built them all in the backend course)
-
 const getMyProfile = async () => {
   const result = await API.graphql({
     query: gql`
