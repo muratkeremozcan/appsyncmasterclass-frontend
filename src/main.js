@@ -5,6 +5,7 @@ import Amplify from 'aws-amplify'
 import '@aws-amplify/ui-vue'
 import router from './router'
 import store from './store'
+import directives from './directives'
 
 // the env vars are from the .env file for backend, or aws console CloudFormation
 Amplify.configure({
@@ -26,6 +27,8 @@ const myAppConfig = {
 Amplify.configure(myAppConfig)
 
 Vue.config.productionTip = false
+
+Vue.use(directives)
 
 new Vue({
   router,
