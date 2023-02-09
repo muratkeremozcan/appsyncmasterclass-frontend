@@ -4,10 +4,6 @@ describe('Prog Login', () => {
   })
 
   it('should progLogin', () => {
-    cy.contains('Root', {timeout: 10000})
-  })
-
-  it('should progLogin again', () => {
-    cy.contains('Root', {timeout: 10000})
+    cy.contains('See what', {timeout: 10000})
   })
 })

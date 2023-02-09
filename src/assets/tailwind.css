@@ -1,5 +1,10 @@
 @tailwind base;
-
 @tailwind components;
-
 @tailwind utilities;
+
+/* https://nerdcave.com/tailwind-cheat-sheet */
+
+button:focus,
+input:focus {
+  outline: none;
+}
