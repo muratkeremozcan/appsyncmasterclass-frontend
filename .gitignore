@@ -29,3 +29,4 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+cypress/e2e/session-login.cy.js
