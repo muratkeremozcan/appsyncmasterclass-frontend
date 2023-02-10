@@ -1,6 +1,35 @@
 import './commands'
 import 'cypress-localstorage-commands'
 
+Cypress.Commands.add('uiLogin', (email, password) => {
+  cy.visit('/')
+
+  cy.intercept('POST', 'https://cognito-idp.eu-west-1.amazonaws.com').as(
+    'login',
+  )
+  cy.get('.w-1\\/2 > :nth-child(1) > .bg-lightblue')
+    .clear()
+    .type(email, {delay: 0})
+  cy.get(':nth-child(2) > .bg-lightblue').clear().type(password, {delay: 0})
+  cy.get('.self-center > .font-bold').click()
+
+  Cypress._.times(2, () =>
+    cy.wait('@login').its('response.statusCode').should('eq', 200),
+  )
+
+  cy.contains('Home', {timeout: 10000})
+})
+
+// this does not work...
+Cypress.Commands.add('sessionLogin', (email, password) => {
+  cy.session({email, password}, () => {
+    cy.uiLogin(email, password)
+  })
+
+  return cy.visit('/')
+})
+
+// AWS amplify prog login example, worth keeping around
 // https://medium.com/trans-it/use-cypress-to-test-aws-amplify-apps-with-authentication-c2dfcb8accab
 // we use the amplify Auth class to create a session for our user. This command returns a CognitoUser.
 const Auth = require('aws-amplify').Auth
@@ -31,95 +60,46 @@ Cypress.Commands.add('progLogin', (username, password) => {
   return cy.visit('/')
 })
 
-Cypress.Commands.add('uiLogin', (email, password) => {
-  cy.visit('/')
+// AWS amplify shadow dom example, worth keeping around
+// Cypress.Commands.add('uiLogin', (email, password) => {
+//   cy.visit('/')
 
-  const dig = () =>
-    cy
-      .get('amplify-authenticator.hydrated')
-      .shadow()
-      .find('amplify-sign-in')
-      .shadow()
+//   const dig = () =>
+//     cy
+//       .get('amplify-authenticator.hydrated')
+//       .shadow()
+//       .find('amplify-sign-in')
+//       .shadow()
 
-  const name = () =>
-    dig()
-      .find('amplify-auth-fields')
-      .shadow()
-      .find('amplify-username-field')
-      .shadow()
-      .find('amplify-form-field')
-      .shadow()
-      .find('#username')
+//   const name = () =>
+//     dig()
+//       .find('amplify-auth-fields')
+//       .shadow()
+//       .find('amplify-username-field')
+//       .shadow()
+//       .find('amplify-form-field')
+//       .shadow()
+//       .find('#username')
 
-  const pw = () =>
-    dig()
-      .find('amplify-auth-fields')
-      .shadow()
-      .find('amplify-password-field')
-      .shadow()
-      .find('amplify-form-field')
-      .shadow()
-      .find('#password')
+//   const pw = () =>
+//     dig()
+//       .find('amplify-auth-fields')
+//       .shadow()
+//       .find('amplify-password-field')
+//       .shadow()
+//       .find('amplify-form-field')
+//       .shadow()
+//       .find('#password')
 
-  const signInBtn = () =>
-    dig()
-      .find('amplify-form-section')
-      .shadow()
-      .find('amplify-button')
-      .shadow()
-      .find('.button')
+//   const signInBtn = () =>
+//     dig()
+//       .find('amplify-form-section')
+//       .shadow()
+//       .find('amplify-button')
+//       .shadow()
+//       .find('.button')
 
-  name().type(email, {force: true, delay: 0})
-  pw().type(password, {force: true, delay: 0, scrollBehavior: false})
-  signInBtn().click({force: true, scrollBehavior: false})
-})
-
-Cypress.Commands.add('sessionLogin', (email, password) => {
-  cy.session({email, password}, () => {
-    cy.visit('/')
-
-    const dig = () =>
-      cy
-        .get('amplify-authenticator.hydrated')
-        .shadow()
-        .find('amplify-sign-in')
-        .shadow()
-        .find('amplify-auth-fields')
-        .shadow()
-
-    const name = () =>
-      dig()
-        .find('amplify-username-field')
-        .shadow()
-        .find('amplify-form-field')
-        .shadow()
-        .find('#username')
-        .should('be.enabled')
-
-    const pw = () =>
-      dig()
-        .find('amplify-password-field')
-        .shadow()
-        .find('amplify-form-field')
-        .shadow()
-        .find('#password')
-
-    const signInBtn = () =>
-      cy
-        .get('amplify-authenticator.hydrated')
-        .shadow()
-        .find('amplify-sign-in')
-        .shadow()
-        .find('amplify-form-section')
-        .shadow()
-        .find('amplify-button')
-        .shadow()
-        .find('.button')
-
-    name().type(email, {force: true, delay: 0})
-    pw().type(password, {force: true, delay: 0, scrollBehavior: false})
-    signInBtn().click({force: true, scrollBehavior: false})
-  })
-
-  return cy.visit('/')
-})
+//   name().type(email, {force: true, delay: 0})
+//   pw().type(password, {force: true, delay: 0, scrollBehavior: false})
+//   signInBtn().click({force: true, scrollBehavior: false})
+// })
