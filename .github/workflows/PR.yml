@@ -77,7 +77,7 @@ jobs:
           # install: false # Cypress gha will take care of caching instead of bahmutov/installs
           component: true
           browser: chrome
-
+          config-file: cypress/config/local.config.js
           record: true
           parallel: false
           group: ct-tests
