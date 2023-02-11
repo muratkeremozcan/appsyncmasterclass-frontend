@@ -18,15 +18,8 @@ module.exports = defineConfig({
     //   // implement node event listeners here
     // },
     env: {
-      ENVIRONMENT: 'local',
+      ENVIRONMENT: 'dev',
     },
     baseUrl: 'http://localhost:8080/#/',
-  },
-
-  component: {
-    devServer: {
-      framework: 'vue-cli',
-      bundler: 'webpack',
-    },
   },
 })

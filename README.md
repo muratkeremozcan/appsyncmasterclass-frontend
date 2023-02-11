@@ -1,6 +1,6 @@
 # appsyncmasterclass-frontend
 
-[![lint-e2e-ct](https://github.com/muratkeremozcan/appsyncmasterclass-frontend/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/muratkeremozcan/appsyncmasterclass-frontend/actions/workflows/main.yml)
+[![dev](https://github.com/muratkeremozcan/appsyncmasterclass-frontend/actions/workflows/dev.yml/badge.svg?branch=main)](https://github.com/muratkeremozcan/appsyncmasterclass-frontend/actions/workflows/dev.yml)
 [![appsync-frontend](https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/count/r8t63u/main&style=plastic&logo=cypress)](https://cloud.cypress.io/projects/r8t63u/runs)
 
 The frontend part of AppSync master class. Uses Vue, Tailwind, and AWS Amplify

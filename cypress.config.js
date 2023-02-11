@@ -6,4 +6,11 @@ module.exports = defineConfig({
       // no-op
     },
   },
+
+  component: {
+    devServer: {
+      framework: 'vue-cli',
+      bundler: 'webpack',
+    },
+  },
 })

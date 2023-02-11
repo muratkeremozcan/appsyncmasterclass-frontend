@@ -29,6 +29,6 @@ test:
       commands:
         - server-test 8080 'cypress run --e2e --browser chrome --config-file
           cypress/config/local.config.js --record --key $CYPRESS_RECORD_KEY
-          --parallel --group e2e-tests --tag amplify --config video=false
-          screenshot=false'
+          --parallel 2 --group amplify-local-e2e-tests --tag
+          amplify-local-e2e-tests --config video=false screenshot=false'
 # After deploy finishes, how do we run the tests against dev?
