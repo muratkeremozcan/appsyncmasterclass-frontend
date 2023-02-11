@@ -9,26 +9,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  install-dependencies:
-    name: Install Dependencies
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      # Install NPM dependencies, cache node-modules and Cypress correctly
-      # https://github.com/cypress-io/github-action
-      - name: Install dependencies
-        uses: cypress-io/github-action@v5.0.8
-        with:
-          runTests: false
-
   cypress-e2e-test:
-    # if you want to enable parallelization
     strategy:
       fail-fast: false
       matrix:
         machines: [1, 2]
-    needs: [install-dependencies]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -39,12 +24,10 @@ jobs:
           # install: false # Cypress gha will take care of install instead of bahmutov/installs
           browser: chrome
           config-file: cypress/config/dev.config.js
-          # if you want to enable parallelization
           record: true
           parallel: true
           group: dev-e2e-tests
           tag: dev-e2e-tests
         env:
-          # if you want to enable parallelization
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
