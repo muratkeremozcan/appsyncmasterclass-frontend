@@ -8,10 +8,19 @@ module.exports = defineConfig({
     openMode: 0,
   },
 
+  viewportHeight: 1080,
+  viewportWidth: 1920,
+
+  experimentalStudio: true,
+
   e2e: {
-    setupNodeEvents() {
-      // no-op
+    // setupNodeEvents(on, config) {
+    //   // implement node event listeners here
+    // },
+    env: {
+      ENVIRONMENT: 'dev',
     },
+    baseUrl: 'https://main.d2uw1pp8i1hsae.amplifyapp.com/#/',
   },
 
   component: {
