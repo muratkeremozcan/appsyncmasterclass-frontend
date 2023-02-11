@@ -8,10 +8,10 @@
     "lint": "vue-cli-service lint",
     "cy:open": "cypress open",
     "cy:open-ct": "cypress open --component --browser chrome",
-    "cy:open-e2e": "server-test 8080 'cypress open --e2e --browser chrome'",
+    "cy:open-e2e": "server-test start 8080 'cypress open --e2e --browser chrome'",
     "cy:run-ct": "cypress run --component --browser chrome",
     "cy:run-ct-fast": "yarn cy:run-ct --config video=false screenshot=false",
-    "cy:run-e2e": "server-test 8080 'cypress run --e2e --browser chrome'",
+    "cy:run-e2e": "server-test start 8080 'cypress run --e2e --browser chrome'",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|json|css|md|mdx|html)\""
   },
   "dependencies": {
