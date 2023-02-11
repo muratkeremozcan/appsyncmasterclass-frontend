@@ -37,14 +37,13 @@ jobs:
         uses: cypress-io/github-action@v5.0.8
         with:
           # install: false # Cypress gha will take care of install instead of bahmutov/installs
-          start: yarn start
-          wait-on: 'http://localhost:8080'
           browser: chrome
+          config-file: cypress/config/dev.config.js
           # if you want to enable parallelization
           record: true
           parallel: true
-          group: e2e-tests
-          tag: e2e-tests
+          group: dev-e2e-tests
+          tag: dev-e2e-tests
         env:
           # if you want to enable parallelization
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
