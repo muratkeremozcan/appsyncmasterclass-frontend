@@ -15,11 +15,11 @@ frontend:
     paths:
       - node_modules/**/*
 test:
-  artifacts:
-    baseDirectory: cypress
-    files:
-      - '**/*.png'
-      - '**/*.mp4'
+  # artifacts:
+  #   baseDirectory: cypress
+  #   files:
+  #     - '**/*.png'
+  #     - '**/*.mp4'
   phases:
     preTest:
       commands:
