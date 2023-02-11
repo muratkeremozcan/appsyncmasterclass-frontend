@@ -16,8 +16,12 @@ yarn cy:open-ct # for cypress component test runner
 yarn cy:run-ct # headless version
 
 # runs the ui and api servers, then opens e2e runner
-yarn cy:open-e2e
-yarn cy:run-e2e  # headless version
+yarn cy:open-local
+yarn cy:run-local  # headless version
+
+# dev deployment
+yarn cy:open-dev
+yarn cy:run-dev
 
 yarn start # serve the app
 ```

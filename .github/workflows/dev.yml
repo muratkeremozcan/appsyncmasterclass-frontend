@@ -1,6 +1,7 @@
-name: lint-e2e-ct
+name: dev
 on:
   push:
+    branches: [main]
   workflow_dispatch:
 
 concurrency:
@@ -20,19 +21,6 @@ jobs:
         uses: cypress-io/github-action@v5.0.8
         with:
           runTests: false
-
-  lint:
-    needs: install-dependencies
-    name: Run Lint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Install dependencies
-        uses: cypress-io/github-action@v5.0.8
-        with:
-          runTests: false
-      - name: lint
-        run: yarn lint
 
   cypress-e2e-test:
     # if you want to enable parallelization
@@ -57,33 +45,6 @@ jobs:
           parallel: true
           group: e2e-tests
           tag: e2e-tests
-        env:
-          # if you want to enable parallelization
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  cypress-ct-test:
-    # if you want to enable parallelization
-    # strategy:
-    #   matrix:
-    #     machines: [1, 2, 3]
-    needs: [install-dependencies]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Cypress component tests 🧪
-        uses: cypress-io/github-action@v5.0.8
-        with:
-          # we have already installed everything
-          # install: false # Cypress gha will take care of caching instead of bahmutov/installs
-          component: true
-          browser: chrome
-          # if you want to enable parallelization
-          record: true
-          parallel: false
-          group: ct-tests
-          tag: ct-tests
         env:
           # if you want to enable parallelization
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
