@@ -1,4 +1,18 @@
 version: 1
+test:
+  artifacts:
+    baseDirectory: cypress
+    files:
+      - '**/*.png'
+      - '**/*.mp4'
+  phases:
+    preTest:
+      commands:
+        - yarn install
+    test:
+      commands:
+        - server-test 8080 'cypress run --e2e --browser chrome --record --key
+          $CYPRESS_RECORD_KEY --parallel --group e2e-tests --tag amplify'
 frontend:
   phases:
     preBuild:
@@ -14,17 +28,3 @@ frontend:
   cache:
     paths:
       - node_modules/**/*
-test:
-  artifacts:
-    baseDirectory: cypress
-    files:
-      - '**/*.png'
-      - '**/*.mp4'
-  phases:
-    preTest:
-      commands:
-        - yarn install
-    test:
-      commands:
-        - yarn cy:run-e2e --record --key $CYPRESS_RECORD_KEY --parallel --group
-          e2e-tests --tag amplify
