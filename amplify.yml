@@ -15,20 +15,20 @@ frontend:
     paths:
       - node_modules/**/*
 ## What is the point of this? We already test against localhost:8080 on branches
-test:
-  artifacts:
-    baseDirectory: cypress
-    files:
-      - '**/*.png'
-      - '**/*.mp4'
-  phases:
-    preTest:
-      commands:
-        - yarn install
-    test:
-      commands:
-        - server-test 8080 'cypress run --e2e --browser chrome --config-file
-          cypress/config/local.config.js --record --key $CYPRESS_RECORD_KEY
-          --parallel 2 --group amplify-local-e2e-tests --tag
-          amplify-local-e2e-tests --config video=false screenshot=false'
+# test:
+#   artifacts:
+#     baseDirectory: cypress
+#     files:
+#       - '**/*.png'
+#       - '**/*.mp4'
+#   phases:
+#     preTest:
+#       commands:
+#         - yarn install
+#     test:
+#       commands:
+#         - server-test 8080 'cypress run --e2e --browser chrome --config-file
+#           cypress/config/local.config.js --record --key $CYPRESS_RECORD_KEY
+#           --parallel 2 --group amplify-local-e2e-tests --tag
+#           amplify-local-e2e-tests --config video=false screenshot=false'
 # After deploy finishes, how do we run the tests against dev?
