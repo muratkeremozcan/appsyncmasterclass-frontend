@@ -52,7 +52,6 @@ jobs:
           wait-on: 'http://localhost:8080'
           config-file: cypress/config/local.config.js
           browser: chrome
-
           record: true
           parallel: true
           group: local-e2e-tests
@@ -62,9 +61,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   cypress-ct-test:
-    # strategy:
-    #   matrix:
-    #     machines: [1, 2, 3]
+    strategy:
+      fail-fast: false
+      matrix:
+        machines: [1, 2]
     needs: [install-dependencies]
     runs-on: ubuntu-latest
     steps:
@@ -78,7 +78,7 @@ jobs:
           component: true
           browser: chrome
           record: true
-          parallel: false
+          parallel: true
           group: ct-tests
           tag: ct-tests
         env:

@@ -1,8 +1,4 @@
 describe('Login', () => {
-  it('should login with valid credentials', () => {
-    cy.uiLogin(Cypress.env('USERNAME'), Cypress.env('PASSWORD'))
-  })
-
   it('should alert with an error on invalid login', () => {
     cy.visit('/')
 
@@ -25,5 +21,12 @@ describe('Login', () => {
       'be.calledWith',
       'Error signing in, please check console for error detail',
     )
+  })
+
+  it.only('should login with valid credentials', () => {
+    cy.uiLogin(Cypress.env('USERNAME'), Cypress.env('PASSWORD'))
+    cy.get('.relative > .flex').should('contain', 'appsync-tester').click()
+    cy.get('.absolute > :nth-child(3)').click()
+    cy.contains("See what's happening")
   })
 })

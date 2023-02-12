@@ -15,7 +15,7 @@
         <div class="px-5 py-3 border-b-8 border-lighter flex">
           <div class="flex-none mr-4">
             <img
-              :src="'default_profile.png'"
+              :src="`${profile.imageUrl || 'default_profile.png'}`"
               class="flex-none w-12 h-12 rounded-full"
             />
           </div>
@@ -71,6 +71,7 @@
 <script>
 import SideNav from '../components/SideNav.vue'
 import DefaultRightBar from '../components/DefaultRightBar.vue'
+import {mapActions, mapGetters} from 'vuex'
 
 export default {
   name: 'Home',
@@ -85,6 +86,15 @@ export default {
         text: '',
       },
     }
+  },
+  computed: {
+    ...mapGetters('twitter', ['profile']),
+  },
+  methods: {
+    ...mapActions('authentication', ['loginUserIfAlreadyAuthenticated']),
+  },
+  async created() {
+    await this.loginUserIfAlreadyAuthenticated()
   },
 }
 </script>
