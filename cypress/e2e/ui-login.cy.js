@@ -23,7 +23,7 @@ describe('Login', () => {
     )
   })
 
-  it.only('should login with valid credentials', () => {
+  it('should login with valid credentials', () => {
     cy.uiLogin(Cypress.env('USERNAME'), Cypress.env('PASSWORD'))
     cy.get('.relative > .flex').should('contain', 'appsync-tester').click()
     cy.get('.absolute > :nth-child(3)').click()

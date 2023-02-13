@@ -57,7 +57,7 @@ Cypress.Commands.add('progLogin', (username, password) => {
     )
   })
   cy.saveLocalStorage()
-  return cy.visit('/')
+  return cy.visit('/home')
 })
 
 // AWS amplify shadow dom example, worth keeping around
