@@ -13,11 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-
-      # Install NPM dependencies, cache node-modules and Cypress correctly
-      # https://github.com/cypress-io/github-action
       - name: Install dependencies
         uses: cypress-io/github-action@v5.0.8
         with:
@@ -33,6 +28,7 @@ jobs:
         uses: cypress-io/github-action@v5.0.8
         with:
           runTests: false
+          install: false
       - name: lint
         run: yarn lint
 
@@ -45,11 +41,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Cypress e2e tests 🧪
         uses: cypress-io/github-action@v5.0.8
         with:
-          # install: false # Cypress gha will take care of install instead of bahmutov/installs
+          install: false # Cypress gha will take care of install instead of bahmutov/installs
           start: yarn start
           wait-on: 'http://localhost:8080'
           config-file: cypress/config/local.config.js
@@ -71,12 +69,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Cypress component tests 🧪
         uses: cypress-io/github-action@v5.0.8
         with:
-          # we have already installed everything
-          # install: false # Cypress gha will take care of caching instead of bahmutov/installs
+          install: false # Cypress gha will take care of caching
           component: true
           browser: chrome
           record: true
