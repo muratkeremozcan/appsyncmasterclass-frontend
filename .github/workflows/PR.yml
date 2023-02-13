@@ -7,6 +7,10 @@ concurrency:
   group: ${{ github.head_ref || github.ref }}
   cancel-in-progress: true
 
+env:
+  CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 jobs:
   install-dependencies:
     name: Install Dependencies
@@ -58,9 +62,6 @@ jobs:
           parallel: true
           group: local-e2e-tests
           tag: local-e2e-tests
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   cypress-ct-test:
     strategy:
@@ -83,6 +84,3 @@ jobs:
           parallel: true
           group: ct-tests
           tag: ct-tests
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
