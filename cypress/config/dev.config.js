@@ -19,6 +19,8 @@ module.exports = defineConfig({
     // },
     env: {
       ENVIRONMENT: 'dev',
+      API_URL:
+        'https://awfrp7n7rrhw5kzqimfegnqzeq.appsync-api.eu-west-1.amazonaws.com/graphql',
     },
     baseUrl: 'https://main.d2uw1pp8i1hsae.amplifyapp.com/#/',
   },
