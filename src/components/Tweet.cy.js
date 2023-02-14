@@ -26,8 +26,18 @@ describe('Tweet component', () => {
     cy.contains(tweet.createdAt)
     cy.contains(tweet.text)
     cy.contains(tweet.profile.name)
-    cy.contains(tweet.likes)
-    cy.contains(tweet.retweets)
-    cy.contains(tweet.replies)
+    cy.contains(':nth-child(3) > p', tweet.likes)
+    cy.contains(':nth-child(2) > :nth-child(3) > :nth-child(2)', tweet.retweets)
+    cy.contains(':nth-child(3) > :nth-child(1) > p', tweet.replies)
+
+    Cypress.on('uncaught:exception', err => {
+      const dispatch = /^[^(dispatch)]/
+      if (dispatch.test(err.message)) return false
+    })
+    cy.get(':nth-child(2) > .mr-2 > .fas').click()
+    cy.contains(':nth-child(3) > :nth-child(2) > p', Number(tweet.retweets) - 1)
+
+    cy.get(':nth-child(3) > .mr-2 > .fas').click()
+    cy.contains(':nth-child(3) > p', Number(tweet.likes) - 1)
   })
 })
