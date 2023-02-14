@@ -24,7 +24,9 @@ import {mount} from 'cypress/vue2'
 //Load global styles
 import '../../src/assets/tailwind.css'
 
+// import global store
+import store from '../../src/store/index'
+
 Cypress.Commands.add('mount', mount)
 
-// Example use:
-// cy.mount(MyComponent)
+Cypress.Commands.add('storeMount', Component => cy.mount(Component, {store}))

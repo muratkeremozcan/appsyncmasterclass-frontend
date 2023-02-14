@@ -23,13 +23,12 @@ describe('Get Tweets', () => {
     cy.contains('Now')
   })
 
-  it.only('should reply to a tweet', () => {
+  it('should reply to a tweet', () => {
     cy.get(
       ':nth-child(1) > .p-4 > :nth-child(2) > :nth-child(3) > :nth-child(1) > .mr-2 > .far',
     ).click()
 
     cy.intercept('POST', Cypress.env('API_URL'), req => {
-      console.log(req.body)
       if (req.body.query.includes('reply')) {
         req.alias = `replyMutation`
         return req.reply({

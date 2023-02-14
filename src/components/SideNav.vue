@@ -12,6 +12,7 @@
         <button
           v-for="tab in tabs"
           :key="tab.id"
+          @click="open(tab.target)"
           class="focus:outline-none hover:text-blue flex items-center px-4 py-2 hover:bg-lightblue rounded-full mr-auto mb-3"
         >
           <i class="text-2xl mr-4" :class="tab.icon"></i>
@@ -114,6 +115,20 @@ export default {
   },
   methods: {
     ...mapActions('authentication', ['logoutUser']),
+    async open(target) {
+      const current = this.$route.name
+      if (
+        target != current ||
+        this.$route.params.screenName != this.profile.screenName
+      ) {
+        this.$router.push({
+          name: target,
+          params: {
+            screenName: this.profile.screenName,
+          },
+        })
+      }
+    },
     async signOut() {
       try {
         console.log('signing out...')
