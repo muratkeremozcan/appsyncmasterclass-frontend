@@ -1,4 +1,4 @@
-import Retweet from './Retweet.vue'
+// import Retweet from './Retweet.vue'
 
 describe('Retweet component', () => {
   it('displays the correct label for the retweet', () => {
