@@ -29,4 +29,6 @@ import store from '../../src/store/index'
 
 Cypress.Commands.add('mount', mount)
 
-Cypress.Commands.add('storeMount', Component => cy.mount(Component, {store}))
+Cypress.Commands.add('storeMount', (Component, opts) => {
+  return cy.mount(Component, {...opts, store})
+})
