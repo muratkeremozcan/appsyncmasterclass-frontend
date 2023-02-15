@@ -80,6 +80,19 @@ Cypress.Commands.add('dataSessionLogin', (email, password) => {
   })
 })
 
+Cypress.Commands.add('dataSessionLogin', (email, password) => {
+  return cy.dataSession({
+    name: email,
+    setup: () => cy.progLogin(email, password),
+    validate: () => false, // how do we have better logic here so that it doesn't progLogin every time?
+    recreate: () => {
+      cy.visit('/home')
+      return cy.contains('Home', {timeout: 10000})
+    },
+    cacheAcrossSpecs: true,
+  })
+})
+
 // AWS amplify shadow dom example, worth keeping around
 // Cypress.Commands.add('uiLogin', (email, password) => {
 //   cy.visit('/')
