@@ -17,6 +17,8 @@ Cypress.Commands.add('uiLogin', (email, password) => {
   Cypress._.times(2, () =>
     cy.wait('@login').its('response.statusCode').should('eq', 200),
   )
+
+  return cy.contains('Home', {timeout: 10000})
 })
 
 Cypress.Commands.add('sessionLogin', (email, password) => {
