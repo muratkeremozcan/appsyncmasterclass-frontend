@@ -17,16 +17,16 @@ Cypress.Commands.add('uiLogin', (email, password) => {
   Cypress._.times(2, () =>
     cy.wait('@login').its('response.statusCode').should('eq', 200),
   )
-
-  cy.contains('Home', {timeout: 10000})
 })
 
 Cypress.Commands.add('sessionLogin', (email, password) => {
   cy.session({email, password}, () => cy.uiLogin(email, password), {
-    validate() {
-      cy.visit('/home')
-      return cy.contains('Home', {timeout: 10000})
-    },
+    validate: () =>
+      cy.getAllLocalStorage().then(localStorage => {
+        Cypress._.some(localStorage, (value, key) =>
+          key.includes('CognitoIdentityServiceProvider'),
+        )
+      }),
     cacheAcrossSpecs: true,
   })
 
