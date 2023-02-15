@@ -24,11 +24,13 @@ Cypress.Commands.add('uiLogin', (email, password) => {
 Cypress.Commands.add('sessionLogin', (email, password) => {
   cy.session({email, password}, () => cy.uiLogin(email, password), {
     validate: () =>
-      cy.getAllLocalStorage().then(localStorage => {
-        Cypress._.some(localStorage, (value, key) =>
-          key.includes('CognitoIdentityServiceProvider'),
-        )
-      }),
+      cy
+        .getAllLocalStorage()
+        .then(localStorage =>
+          Cypress._.some(localStorage, (value, key) =>
+            key.includes('CognitoIdentityServiceProvider'),
+          ),
+        ),
     cacheAcrossSpecs: true,
   })
 
