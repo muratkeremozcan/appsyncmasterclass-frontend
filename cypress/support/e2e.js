@@ -25,7 +25,7 @@ Cypress.Commands.add('sessionLogin', (email, password) => {
     validate: () =>
       cy
         .getAllLocalStorage()
-        .then(localStorage =>
+        .should(localStorage =>
           Cypress._.some(localStorage, (value, key) =>
             key.includes('CognitoIdentityServiceProvider'),
           ),
