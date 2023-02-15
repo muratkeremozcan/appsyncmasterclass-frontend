@@ -24,7 +24,7 @@ Cypress.Commands.add('uiLogin', (email, password) => {
 const validateLocalStorage = () =>
   cy
     .getAllLocalStorage()
-    .then(localStorage =>
+    .should(localStorage =>
       Cypress._.some(localStorage, (value, key) =>
         key.includes('CognitoIdentityServiceProvider'),
       ),
