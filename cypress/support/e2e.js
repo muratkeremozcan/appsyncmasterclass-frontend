@@ -17,16 +17,23 @@ Cypress.Commands.add('uiLogin', (email, password) => {
     cy.wait('@login').its('response.statusCode').should('eq', 200),
   )
 
-  cy.contains('Home', {timeout: 10000})
+  return cy.contains('Home', {timeout: 10000})
 })
 
-// this does not work...
 Cypress.Commands.add('sessionLogin', (email, password) => {
-  cy.session({email, password}, () => {
-    cy.uiLogin(email, password)
+  cy.session({email, password}, () => cy.uiLogin(email, password), {
+    validate: () =>
+      cy
+        .getAllLocalStorage()
+        .then(localStorage =>
+          Cypress._.some(localStorage, (value, key) =>
+            key.includes('CognitoIdentityServiceProvider'),
+          ),
+        ),
+    cacheAcrossSpecs: true,
   })
 
-  return cy.visit('/')
+  return cy.visit('/home')
 })
 
 // AWS amplify prog login example, worth keeping around
