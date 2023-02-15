@@ -15,13 +15,21 @@ const tweet = {
   retweets: 5,
   replies: 4,
 }
-describe('ReplyOverlay component', () => {
-  it('should', () => {
+describe('ReplyOverlay component', {viewportWidth: 800}, () => {
+  it('should render the data and toggle Reply opacity on typing', () => {
     cy.storeMount(ReplyOverlay, {
       propsData: {
         showReplyOverlay: true,
         tweet,
       },
     })
+
+    cy.contains(tweet.profile.name)
+    cy.contains(tweet.profile.screenName)
+    cy.contains(tweet.text)
+
+    cy.get('.h-10').should('have.css', 'opacity', '0.5')
+    cy.get('.relative > .w-full').type('42')
+    cy.get('.h-10').should('have.css', 'opacity', '1')
   })
 })
