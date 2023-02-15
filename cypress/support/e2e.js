@@ -59,14 +59,15 @@ Cypress.Commands.add('progLogin', (username, password) => {
     )
   })
   cy.saveLocalStorage()
-  return cy.visit('/home')
+  cy.visit('/home')
+  return cy.getAllLocalStorage()
 })
 
 Cypress.Commands.add('dataSessionLogin', (email, password) => {
   return cy.dataSession({
     name: email,
     setup: () => cy.progLogin(email, password),
-    validate: () => false, // how do we have better logic here so that it doesn't progLogin every time?
+    validate: !Cypress._.isEmpty,
     recreate: () => {
       cy.visit('/home')
       return cy.contains('Home', {timeout: 10000})
