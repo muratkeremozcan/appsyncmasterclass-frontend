@@ -75,7 +75,8 @@ Cypress.Commands.add('dataSessionLogin', (email, password) => {
     name: email,
     setup: () => cy.progLogin(email, password),
     validate: validateLocalStorage,
-    recreate: () => {
+    recreate: result => {
+      console.log(result)
       cy.visit('/home')
       return cy.contains('Home', {timeout: 10000})
     },
