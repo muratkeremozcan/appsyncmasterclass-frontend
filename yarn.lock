@@ -4799,10 +4799,24 @@ cyclist@^1.0.1:
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
   integrity sha512-NJGVKPS81XejHcLhaLJS7plab0fK3slPh11mESeeDq2W4ZI5kUKK/LRRdVDvjJseojbPB7ZwjnyOybg3Igea/A==
 
+cypress-data-session@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/cypress-data-session/-/cypress-data-session-2.3.1.tgz#c3874cace208c8bc5e8cf0835820e58872630aff"
+  integrity sha512-jvLxQsR0fUF3UzmMngZCctH55uHZp3xxDY8/QOIomYjUjO3BPbYBYfEl2EXzgPcPYBM2Ui4van3cR6BpSq1Krg==
+  dependencies:
+    cypress-plugin-config "^1.2.0"
+    debug "^4.3.2"
+    simple-sha256 "^1.1.0"
+
 cypress-localstorage-commands@2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/cypress-localstorage-commands/-/cypress-localstorage-commands-2.2.2.tgz#bbecb1d5b7dd3863a5ced4131acc6b878136311c"
   integrity sha512-mONoaxoMAFOSsF+SIDx30hysD3XOY8kPLxjtORdZWDj3sJs+u03XOddTDETPIbLch0DWy5Dtyw1ou3EsFGYZAQ==
+
+cypress-plugin-config@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/cypress-plugin-config/-/cypress-plugin-config-1.2.0.tgz#814671e75b802d5b1e17229621996114e3cd2ce1"
+  integrity sha512-vgMMwjeI/L+2xptqkyhJ20LRuZrrsdbPaGMNNLVq+Cwox5+9dm0E312gpMXgXRs05uyUAzL/nCm/tdTckSAgoQ==
 
 cypress@12.5.1:
   version "12.5.1"
@@ -9901,6 +9915,11 @@ signal-exit@^3.0.0, signal-exit@^3.0.2, signal-exit@^3.0.3:
   version "3.0.7"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.7.tgz#a9a1767f8af84155114eaabd73f99273c8f59ad9"
   integrity sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==
+
+simple-sha256@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/simple-sha256/-/simple-sha256-1.1.0.tgz#e6d245a932e70ba45fc1699321e3cc3f82a1d605"
+  integrity sha512-jMdj+5MR1dRiFbrQ8idmkPv+HCoJEmJVBBwc0vQQz4Gtg3PEkjdpVxUM4BSwK898zhNP/ub3vcP9edw47EHuLQ==
 
 simple-swizzle@^0.2.2:
   version "0.2.2"

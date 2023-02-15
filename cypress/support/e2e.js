@@ -1,5 +1,6 @@
 import './commands'
 import 'cypress-localstorage-commands'
+import 'cypress-data-session'
 
 Cypress.Commands.add('uiLogin', (email, password) => {
   cy.visit('/')
@@ -20,16 +21,18 @@ Cypress.Commands.add('uiLogin', (email, password) => {
   cy.contains('Home', {timeout: 10000})
 })
 
-// this does not work...
 Cypress.Commands.add('sessionLogin', (email, password) => {
-  cy.session({email, password}, () => {
-    cy.uiLogin(email, password)
+  cy.session({email, password}, () => cy.uiLogin(email, password), {
+    validate() {
+      cy.visit('/home')
+      return cy.contains('Home', {timeout: 10000})
+    },
+    cacheAcrossSpecs: true,
   })
 
-  return cy.visit('/')
+  return cy.visit('/home')
 })
 
-// AWS amplify prog login example, worth keeping around
 // https://medium.com/trans-it/use-cypress-to-test-aws-amplify-apps-with-authentication-c2dfcb8accab
 // we use the amplify Auth class to create a session for our user. This command returns a CognitoUser.
 const Auth = require('aws-amplify').Auth
@@ -37,7 +40,6 @@ Auth.configure({
   aws_user_pools_id: Cypress.env('COGNITO_USER_POOL_ID'),
   aws_user_pools_web_client_id: Cypress.env('WEB_COGNITO_USER_POOL_CLIENT_ID'),
 })
-
 Cypress.Commands.add('progLogin', (username, password) => {
   // the Auth.singIn() command needs to be wrapped in cy.then() because of the way cypress handles promises
   cy.then(() => Auth.signIn(username, password)).then(cognitoUser => {
@@ -58,6 +60,19 @@ Cypress.Commands.add('progLogin', (username, password) => {
   })
   cy.saveLocalStorage()
   return cy.visit('/home')
+})
+
+Cypress.Commands.add('dataSessionLogin', (email, password) => {
+  return cy.dataSession({
+    name: email,
+    setup: () => cy.progLogin(email, password),
+    validate: () => false, // how do we have better logic here so that it doesn't progLogin every time?
+    recreate: () => {
+      cy.visit('/home')
+      return cy.contains('Home', {timeout: 10000})
+    },
+    cacheAcrossSpecs: true,
+  })
 })
 
 // AWS amplify shadow dom example, worth keeping around

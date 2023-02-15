@@ -25,6 +25,7 @@ describe('Login', () => {
 
   it('should login with valid credentials', () => {
     cy.uiLogin(Cypress.env('USERNAME'), Cypress.env('PASSWORD'))
+    cy.contains('Home', {timeout: 10000})
     cy.get('.relative > .flex').should('contain', 'appsync-tester').click()
     cy.get('.absolute > :nth-child(3)').click()
     cy.contains("See what's happening")
