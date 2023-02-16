@@ -1,5 +1,5 @@
 describe('Profile', () => {
-  it('should', {defaultCommandTimeout: 10000}, () => {
+  it('should upload profile picture', {defaultCommandTimeout: 10000}, () => {
     cy.stubGqlRequest('getMyTimeline', {
       fixture: 'getMyTimeline.json',
     })
