@@ -2,19 +2,15 @@ import {data} from '../fixtures/getMyTimeline.json'
 
 describe('Get Tweets', () => {
   beforeEach(() => {
-    const stubDate = Date.parse(data.getMyTimeline.tweets[0].createdAt)
-    cy.clock(stubDate)
+    cy.clock(Date.parse(data.getMyTimeline.tweets[0].createdAt))
     cy.stubGqlRequest('getMyTimeline', {
       fixture: 'getMyTimeline.json',
     })
-
     cy.sessionLogin(Cypress.env('USERNAME'), Cypress.env('PASSWORD'))
-
     cy.wait('@getMyTimeline')
   })
   it('should see tweets', () => {
     cy.get('.p-4').should('have.length', 2)
-
     cy.contains('Now')
   })
 
