@@ -50,6 +50,7 @@
                   profile.imageUrl === null ||
                   profile.imageUrl === 'default_profile.png'
                 "
+                @click="setUpProfile()"
                 class="ml-auto text-blue font-bold px-4 py-2 rounded-full border border-blue mb-2 hover:bg-lightblue"
               >
                 Set up profile
@@ -59,6 +60,7 @@
                   profile.imageUrl !== null &&
                   profile.imageUrl !== 'default_profile.png'
                 "
+                @click="editProfile()"
                 class="ml-auto text-blue font-bold px-4 py-2 rounded-full border border-blue mb-2 hover:bg-lightblue"
               >
                 Edit profile
@@ -183,6 +185,16 @@
       >
         <SearchBar />
       </div>
+
+      <SetupProfileOverlay
+        v-if="showSetUpProfileModal"
+        :showSetUpProfileModal.sync="showSetUpProfileModal"
+      />
+
+      <EditProfileOverlay
+        v-if="showEditProfileModal"
+        :showEditProfileModal.sync="showEditProfileModal"
+      />
     </div>
   </div>
 </template>
@@ -191,17 +203,22 @@
 import SideNav from '../components/SideNav.vue'
 import SearchBar from '../components/SearchBar.vue'
 import Tweets from '../components/Tweets.vue'
+import SetupProfileOverlay from '../components/SetupProfileOverlay.vue'
+import EditProfileOverlay from '../components/EditProfileOverlay.vue'
 import {mapGetters, mapActions} from 'vuex'
-
 export default {
   name: 'Profile',
   components: {
     SideNav,
     SearchBar,
     Tweets,
+    SetupProfileOverlay,
+    EditProfileOverlay,
   },
   data() {
     return {
+      showSetUpProfileModal: false,
+      showEditProfileModal: false,
       isSelf: false,
       followingLabel: 'Following',
     }
@@ -216,6 +233,12 @@ export default {
   methods: {
     ...mapActions('authentication', ['loginUserIfAlreadyAuthenticated']),
     ...mapActions('profilePage', ['loadProfile', 'loadTweets']),
+    setUpProfile() {
+      this.showSetUpProfileModal = true
+    },
+    editProfile() {
+      this.showEditProfileModal = true
+    },
   },
   async created() {
     await this.loginUserIfAlreadyAuthenticated()
@@ -228,13 +251,3 @@ export default {
   },
 }
 </script>
-
-<style>
-div {
-  border: 1px dashed blue;
-  padding: 15px;
-}
-div.items-center.justify-center {
-  background-color: rgba(240, 240, 240, 0.5);
-}
-</style>
