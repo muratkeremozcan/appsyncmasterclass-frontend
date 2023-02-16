@@ -5,7 +5,7 @@ Cypress.Commands.add('uiLogin', (email, password) => {
   cy.visit('/')
 
   cy.intercept('POST', 'https://cognito-idp.eu-west-1.amazonaws.com').as(
-    'login',
+    'cognito',
   )
   cy.get('.w-1\\/2 > :nth-child(1) > .bg-lightblue')
     .clear()
@@ -14,7 +14,7 @@ Cypress.Commands.add('uiLogin', (email, password) => {
   cy.get('.self-center > .font-bold').click()
 
   Cypress._.times(2, () =>
-    cy.wait('@login').its('response.statusCode').should('eq', 200),
+    cy.wait('@cognito').its('response.statusCode').should('eq', 200),
   )
 
   return cy.contains('Home', {timeout: 10000})
@@ -65,6 +65,18 @@ Cypress.Commands.add('progLogin', (username, password) => {
   })
   cy.saveLocalStorage()
   return cy.visit('/home')
+})
+
+Cypress.Commands.add('stubGqlRequest', (request, reply) => {
+  cy.intercept('POST', Cypress.env('API_URL'), req => {
+    if (
+      req.body.query?.includes(request) ||
+      req.body.mutation?.includes(request)
+    ) {
+      req.alias = `${request}`
+      return req.reply(reply)
+    }
+  }).as('gql-stub')
 })
 
 // AWS amplify shadow dom example, worth keeping around
