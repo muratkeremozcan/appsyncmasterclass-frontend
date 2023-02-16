@@ -36,6 +36,7 @@
     "aws-amplify": "3.3.14",
     "babel-eslint": "10.1.0",
     "cypress": "12.5.1",
+    "cypress-data-session": "^2.3.1",
     "cypress-localstorage-commands": "2.2.2",
     "eslint": "v7",
     "eslint-config-prettier": "8.6.0",
