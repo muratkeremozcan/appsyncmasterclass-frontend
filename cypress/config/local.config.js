@@ -1,4 +1,5 @@
 const {defineConfig} = require('cypress')
+const registerDataSession = require('cypress-data-session/src/plugin')
 
 module.exports = defineConfig({
   projectId: 'r8t63u',
@@ -14,9 +15,10 @@ module.exports = defineConfig({
   experimentalStudio: true,
 
   e2e: {
-    // setupNodeEvents(on, config) {
-    //   // implement node event listeners here
-    // },
+    setupNodeEvents(on, config) {
+      registerDataSession(on, config)
+      return config
+    },
     env: {
       ENVIRONMENT: 'dev',
       API_URL:

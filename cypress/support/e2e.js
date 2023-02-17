@@ -1,5 +1,6 @@
 import './commands'
 import 'cypress-localstorage-commands'
+import 'cypress-data-session'
 
 Cypress.Commands.add('uiLogin', (email, password) => {
   cy.visit('/')
@@ -20,19 +21,16 @@ Cypress.Commands.add('uiLogin', (email, password) => {
   return cy.contains('Home', {timeout: 10000})
 })
 
+const validateLocalStorage = localStorage =>
+  Cypress._.some(localStorage, (value, key) =>
+    key.includes('CognitoIdentityServiceProvider'),
+  )
+
 Cypress.Commands.add('sessionLogin', (email, password) => {
   cy.session({email, password}, () => cy.uiLogin(email, password), {
-    validate: () =>
-      cy
-        .getAllLocalStorage()
-        .should(localStorage =>
-          Cypress._.some(localStorage, (value, key) =>
-            key.includes('CognitoIdentityServiceProvider'),
-          ),
-        ),
+    validate: () => cy.getAllLocalStorage().should(validateLocalStorage),
     cacheAcrossSpecs: true,
   })
-
   return cy.visit('/home')
 })
 
@@ -64,7 +62,23 @@ Cypress.Commands.add('progLogin', (username, password) => {
     )
   })
   cy.saveLocalStorage()
-  return cy.visit('/home')
+  return cy.visit('/home').then(() => JSON.parse(JSON.stringify(localStorage)))
+})
+
+Cypress.Commands.add('dataSessionLogin', (email, password) => {
+  return cy.dataSession({
+    name: email,
+    setup: () => cy.progLogin(email, password),
+    validate: validateLocalStorage,
+    recreate: ls => {
+      for (const key in ls) {
+        localStorage[key] = ls[key]
+      }
+      cy.visit('/home')
+      return cy.contains('Home', {timeout: 10000})
+    },
+    cacheAcrossSpecs: true,
+  })
 })
 
 Cypress.Commands.add('stubGqlRequest', (request, reply) => {
