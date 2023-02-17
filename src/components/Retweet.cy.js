@@ -31,7 +31,27 @@ describe.skip('Retweet component', () => {
       liked: false,
     }
 
+    // const tweet2 = {
+    //   __typename: 'Tweet',
+    //   id: '01GSFHRQRD2WFSSAB1V1TTVV7W',
+    //   profile: {
+    //     id: '56e2fa2f-9fdd-4e2f-97ee-acf02fd5eafd',
+    //     name: 'appsync-tester2',
+    //     screenName: 'appsynctester2H5KFF0DE',
+    //     imageUrl:
+    //       'https://backend-dev-assetsbucket-r45x9kghehas.s3-accelerate.amazonaws.com/56e2fa2f-9fdd-4e2f-97ee-acf02fd5eafd/01GSFHTRSFFQXSVCA3G6CTZBN8.jpeg',
+    //   },
+    //   createdAt: '2023-02-17T11:22:20.302Z',
+    //   text: 'my first tweet',
+    //   liked: false,
+    //   likes: 0,
+    //   retweeted: false,
+    //   retweets: 0,
+    //   replies: 0,
+    // }
+
     cy.storeMount(Retweet, {propsData: {tweet}})
-    // TODO: this component has 1 child component, has a problem when rendering the child about tweet.profile
+    // TODO: there is something wrong with the data
+    // we get an error Cannot read properties of undefined (reading 'profile')
   })
 })

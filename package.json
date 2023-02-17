@@ -29,6 +29,9 @@
   },
   "devDependencies": {
     "@aws-amplify/ui-vue": "0.2.33",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
+    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
+    "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
     "@vue/cli-plugin-babel": "4.5.0",
     "@vue/cli-plugin-eslint": "4.5.0",
     "@vue/cli-plugin-router": "4.5.0",
@@ -38,6 +41,7 @@
     "cypress": "12.5.1",
     "cypress-data-session": "^2.3.1",
     "cypress-localstorage-commands": "2.2.2",
+    "esbuild": "^0.17.8",
     "eslint": "v7",
     "eslint-config-prettier": "8.6.0",
     "eslint-plugin-cypress": "2.12.1",

@@ -1,5 +1,6 @@
 const {defineConfig} = require('cypress')
 const registerDataSession = require('cypress-data-session/src/plugin')
+const esbuildPreprocessor = require('../support/esbuild-preprocessor')
 
 module.exports = defineConfig({
   projectId: 'r8t63u',
@@ -16,6 +17,7 @@ module.exports = defineConfig({
 
   e2e: {
     setupNodeEvents(on, config) {
+      esbuildPreprocessor(on)
       registerDataSession(on, config)
       return config
     },

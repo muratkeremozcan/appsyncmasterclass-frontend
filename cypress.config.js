@@ -9,6 +9,9 @@ module.exports = defineConfig({
     openMode: 0,
   },
 
+  viewportHeight: 800,
+  viewportWidth: 800,
+
   e2e: {
     setupNodeEvents() {
       // no-op
