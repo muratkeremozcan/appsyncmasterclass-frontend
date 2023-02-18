@@ -94,6 +94,7 @@ Cypress.Commands.add('stubGqlRequest', (request, reply) => {
 })
 
 // AWS amplify shadow dom example, worth keeping around
+// would have been easier with includeShadowDom https://docs.cypress.io/guides/references/legacy-configuration#Options
 // Cypress.Commands.add('uiLogin', (email, password) => {
 //   cy.visit('/')
 
