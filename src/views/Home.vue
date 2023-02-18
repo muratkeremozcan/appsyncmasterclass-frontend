@@ -44,8 +44,9 @@
       </div>
 
       <!-- timeline -->
+      <Loader :loading="loading" />
       <div
-        v-if="tweets.length === 0"
+        v-if="!loading && tweets.length === 0"
         class="flex flex-col items-center justify-center w-full pt-10 px-6"
       >
         <p class="font-bold text-lg">Welcome to Twitter!</p>
@@ -73,6 +74,7 @@
 import SideNav from '../components/SideNav.vue'
 import DefaultRightBar from '../components/DefaultRightBar.vue'
 import Tweets from '../components/Tweets.vue'
+import Loader from '../components/Loader.vue'
 import {mapActions, mapGetters} from 'vuex'
 
 export default {
@@ -81,12 +83,14 @@ export default {
     SideNav,
     DefaultRightBar,
     Tweets,
+    Loader,
   },
   data() {
     return {
       tweet: {
         text: '',
       },
+      loading: true,
     }
   },
   computed: {
@@ -117,8 +121,9 @@ export default {
     },
   },
   async created() {
+    if (this.tweets.length > 0) this.loading = false
     await this.loginUserIfAlreadyAuthenticated()
-    await this.loadMyTimeline()
+    await this.loadMyTimeline().then(() => (this.loading = false))
   },
 }
 </script>
