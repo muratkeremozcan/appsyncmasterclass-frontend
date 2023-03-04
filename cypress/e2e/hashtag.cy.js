@@ -1,5 +1,3 @@
-// @appsynctester2H5KFF0DE
-
 describe('Hashtag', () => {
   it('should show hashtags on ', {defaultCommandTimeout: 10000}, () => {
     cy.stubGqlRequest('getMyTimeline', {
