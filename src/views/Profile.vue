@@ -132,10 +132,12 @@
                   }}</a
                 >
               </div>
-              <i
-                class="far fa-calendar-alt text-dark align-text-bottom pt-1 mr-2"
-              ></i>
-              <p class="text-dark">Joined {{ joinedDate }}</p>
+              <div v-if="joinedDate" class="flex flex-row mr-4">
+                <i
+                  class="far fa-calendar-alt text-dark align-text-bottom pt-1 mr-2"
+                ></i>
+                <p class="text-dark">Joined {{ joinedDate }}</p>
+              </div>
             </div>
             <div class="flex flex-row mt-1">
               <button
