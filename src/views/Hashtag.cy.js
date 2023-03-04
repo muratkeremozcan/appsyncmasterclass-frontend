@@ -1,11 +1,11 @@
-import Search from './Search.vue'
+import Hashtag from './Hashtag.vue'
 
 // TODO Cannot read properties of undefined (reading 'query')
-describe.skip('Search', () => {
+describe.skip('Hashtag', () => {
   it('should view generic strings ', () => {
     Cypress.on('uncaught:exception', () => false) // doesn't help ignore the error
 
-    cy.storeMount(Search)
+    cy.storeMount(Hashtag)
     cy.contains('No results for')
   })
 })
