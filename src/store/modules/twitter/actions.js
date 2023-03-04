@@ -16,6 +16,7 @@ import {
   getFollowers,
   getFollowing,
   search,
+  getHashTag,
 } from '../../../lib/backend'
 
 export default {
@@ -145,5 +146,29 @@ export default {
       getters.nextTokenSearch,
     )
     commit('TWITTER_LOADMORE_SEARCH', searchResults)
+  },
+
+  async loadSearchHashTag({commit}, {query, mode, limit, nextToken}) {
+    const q = query || ' ' // mandatory
+    const searchResults = await getHashTag(q, mode, limit, nextToken)
+    commit('TWITTER_SEARCH_HASHTAG', searchResults)
+  },
+  resetSearchHashTag({commit}) {
+    const searchResults = {
+      results: [],
+      nextToken: undefined,
+    }
+    commit('TWITTER_SEARCH_HASHTAG', searchResults)
+  },
+  async loadMoreSearchHashTag({commit, getters}, {query, mode, limit}) {
+    if (!getters.nextTokenSearchHashTag) return
+    const q = query || ' ' // mandatory
+    const searchResults = await getHashTag(
+      q,
+      mode,
+      limit,
+      getters.nextTokenSearchHashTag,
+    )
+    commit('TWITTER_LOADMORE_SEARCH_HASHTAG', searchResults)
   },
 }

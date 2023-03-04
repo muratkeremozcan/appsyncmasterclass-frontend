@@ -1,5 +1,5 @@
-describe('Profile', () => {
-  it('should upload profile picture', {defaultCommandTimeout: 10000}, () => {
+describe('Search', () => {
+  it('should search for a tweet', {defaultCommandTimeout: 10000}, () => {
     cy.stubGqlRequest('getMyTimeline', {
       fixture: 'getMyTimeline.json',
     })
