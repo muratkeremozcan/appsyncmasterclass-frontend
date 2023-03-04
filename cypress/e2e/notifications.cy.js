@@ -1,5 +1,5 @@
 describe('Hashtag', () => {
-  it('should show hashtags on ', {defaultCommandTimeout: 10000}, () => {
+  it('should nav to Notifications', {defaultCommandTimeout: 10000}, () => {
     cy.stubGqlRequest('getMyTimeline', {
       fixture: 'getMyTimeline.json',
     })

@@ -4,7 +4,7 @@
       "id": "d05125a9-7f75-4daf-911d-13434418ed89",
       "name": "appsync-tester",
       "screenName": "appsynctesterQCNAWFW5",
-      "imageUrl": "https://backend-dev-assetsbucket-r45x9kghehas.s3-accelerate.amazonaws.com/d05125a9-7f75-4daf-911d-13434418ed89/01GTPB5P76WQFCTAFPT51WBQY8.jpeg",
+      "imageUrl": null,
       "backgroundImageUrl": null,
       "bio": null,
       "location": null,
@@ -13,7 +13,7 @@
       "createdAt": "2023-02-06T14:32:16.594Z",
       "followersCount": 0,
       "followingCount": 0,
-      "tweetsCount": 449,
+      "tweetsCount": 7,
       "likesCounts": 0
     }
   }
