@@ -8,8 +8,7 @@
     ></div>
 
     <div
-      class="modal-main bg-white mx-auto rounded-lg z-50 overflow-y-auto"
-      style="height: 65%; width: 40%"
+      class="modal-main bg-white mx-auto rounded-lg z-50 overflow-y-auto w-full md:w-2/5 max-h-full"
     >
       <div class="pl-1 pr-4 py-1 h-16 border-b-2 border-lightblue">
         <button
@@ -21,9 +20,9 @@
         <div class="flex flex-row mt-1 ml-4">
           <i
             @click="$emit('update:showEditProfileModal', false)"
-            class="fas fa-times text-blue text-2xl mb-8 mr-6 rounded-full bg-white p-2 px-3 hover:bg-lightblue"
+            class="fas fa-times text-blue text-2xl w-10 h-10 mr-6 mt-1 pt-1 pl-3 rounded-full bg-white hover:bg-lightblue"
           ></i>
-          <p class="text-xl pt-1 font-bold">Edit profile</p>
+          <p class="text-xl pt-1 font-bold mt-1">Edit profile</p>
         </div>
       </div>
 
@@ -144,7 +143,7 @@ import Axios from 'axios'
 import moment from 'moment'
 import {mapActions, mapGetters} from 'vuex'
 export default {
-  name: 'SetupProfileOverlay',
+  name: 'SetUpProfileOverlay',
   props: ['showEditProfileModal'],
   data() {
     return {

@@ -4,14 +4,17 @@
     <SideNav />
 
     <!-- tweets -->
-    <div class="w-full h-full overflow-y-scroll" v-scroll:bottom="loadMore">
+    <div
+      class="w-full md:w-1/2 h-full overflow-y-scroll"
+      v-scroll:bottom="loadMore"
+    >
       <div
         class="px-5 py-3 border-b border-lighter flex items-center justify-between"
       >
         <h1 class="text-xl font-bold">Home</h1>
         <i class="far fa-star text-xl text-blue"></i>
       </div>
-      <div class="px-5 py-3 border-b-8 border-lighter flex">
+      <div class="px-2 py-3 border-b-8 border-lighter flex">
         <div class="flex-none mr-4">
           <img
             :src="`${profile.imageUrl || 'default_profile.png'}`"
@@ -20,26 +23,29 @@
         </div>
         <div class="w-full relative">
           <textarea
+            ref="input"
             v-model="tweet.text"
             placeholder="What's happening?"
-            class="w-full focus:outline-none mt-3 pb-3"
+            class="w-full focus:outline-none mt-3 pb-0 md:pb-3"
           ></textarea>
-          <div>
+          <div class="hidden md:block">
             <i class="text-lg text-blue mr-4 far fa-image"></i>
             <i class="text-lg text-blue mr-4 fas fa-film"></i>
             <i class="text-lg text-blue mr-4 far fa-chart-bar"></i>
             <i class="text-lg text-blue mr-4 far fa-smile"></i>
           </div>
-          <button
-            @click="addNewTweet"
-            type="button"
-            class="h-10 px-4 text-white font-semibold bg-blue hover:bg-darkblue rounded-full absolute bottom-0 right-0"
-            :class="`${
-              this.tweet.text ? '' : ' opacity-50 cursor-not-allowed'
-            }`"
-          >
-            Tweet
-          </button>
+          <div class="flex justify-end md:inline">
+            <button
+              @click="addNewTweet"
+              type="button"
+              class="h-10 px-4 text-white font-semibold bg-blue hover:bg-darkblue rounded-full bottom-0 right-0 md:absolute"
+              :class="`${
+                this.tweet.text ? '' : ' opacity-50 cursor-not-allowed'
+              }`"
+            >
+              Tweet
+            </button>
+          </div>
         </div>
       </div>
 
@@ -124,6 +130,9 @@ export default {
     if (this.tweets.length > 0) this.loading = false
     await this.loginUserIfAlreadyAuthenticated()
     await this.loadMyTimeline().then(() => (this.loading = false))
+    this.$nextTick(() => {
+      this.$refs.input?.focus()
+    })
   },
 }
 </script>

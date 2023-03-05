@@ -1,6 +1,6 @@
 <template>
-  <div id="app" class="flex container h-screen w-full">
-    <div class="flex container h-screen w-full">
+  <div id="app" class="flex container h-full w-full">
+    <div class="flex container h-full w-full">
       <SideNav />
 
       <div
@@ -26,7 +26,6 @@
           </div>
         </div>
 
-        <!-- profile details -->
         <div class="flex flex-col">
           <div class="flex flex-row justify-evenly">
             <button
@@ -92,6 +91,7 @@ import SideNav from '../components/SideNav.vue'
 import Results from '../components/Results.vue'
 import Loader from '../components/Loader.vue'
 import {mapGetters, mapActions} from 'vuex'
+
 export default {
   name: 'Search',
   components: {
@@ -108,7 +108,6 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('twitter', ['profile']),
     ...mapGetters('twitter', {
       results: 'search',
     }),
@@ -116,7 +115,6 @@ export default {
   methods: {
     ...mapActions('authentication', ['loginUserIfAlreadyAuthenticated']),
     ...mapActions('twitter', ['loadSearch', 'loadMoreSearch', 'resetSearch']),
-    ...mapActions('profilePage', ['loadProfile']),
     gotoHome() {
       this.$router.push({
         name: 'Home',
