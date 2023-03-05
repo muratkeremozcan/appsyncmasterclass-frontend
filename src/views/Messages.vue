@@ -364,8 +364,8 @@ export default {
       this.setActiveConversation(undefined)
     },
     async loadMore() {
-      if (!this.active) return
-      console.log('loading...')
+      // if (!this.active) return // hot garbage
+      // console.log('loading...')
       await this.loadMoreDirectMessages({
         otherUserId: this.active.otherUser.id,
         limit: 10,
