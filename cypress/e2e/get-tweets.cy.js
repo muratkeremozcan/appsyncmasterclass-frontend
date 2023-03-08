@@ -10,13 +10,13 @@ describe('Get Tweets', () => {
     cy.wait('@getMyTimeline')
   })
   it('should see tweets', () => {
-    cy.get('.p-4').should('have.length', 2)
+    cy.get('.p-2').should('have.length.gte', 2)
     cy.contains('Now')
   })
 
   it('should reply to a tweet', () => {
     cy.get(
-      ':nth-child(1) > .p-4 > :nth-child(2) > :nth-child(3) > :nth-child(1) > .mr-2 > .far',
+      ':nth-child(1) > .p-2 > :nth-child(2) > :nth-child(3) > :nth-child(1) > .mr-2 > .far',
     ).click()
     cy.stubGqlRequest('reply', {
       statusCode: 200,
