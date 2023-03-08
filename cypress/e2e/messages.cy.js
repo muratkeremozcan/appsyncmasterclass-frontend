@@ -2,6 +2,7 @@ describe('Messages', () => {
   it('should check messages', () => {
     cy.intercept('POST', '*').as('networkCall')
     cy.sessionLogin(Cypress.env('USERNAME'), Cypress.env('PASSWORD'))
+    Cypress._.times(2, () => cy.wait('@networkCall'))
     cy.contains('Messages').click()
 
     Cypress._.times(7, () => cy.wait('@networkCall'))
